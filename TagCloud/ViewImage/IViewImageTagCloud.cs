@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace TagCloud
 {
-    public interface IViewTagCloud
+    public interface IViewImageTagCloud
     {
+        byte[][] MakeImage();
     }
 }

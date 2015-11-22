@@ -1,23 +1,48 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace TagCloud
 {
-    public class TagContainer
+    public class TagContainer : IEnumerable<Tag>
     {
-        public readonly Dictionary<string, int> TagCount;
+        private readonly List<Tag> tagCount;
 
         public TagContainer()
         {
-            TagCount = new Dictionary<string, int>();
+            tagCount = new List<Tag>();
         }
 
-        public TagContainer(Dictionary<string, int> tagCount)
+        public Tag this[string name]
         {
-            TagCount = tagCount;
+            get
+            {
+                foreach (var e in tagCount)
+                    if (e.Name == name)
+                        return e;
+                throw new KeyNotFoundException();
+            }
+        }
+
+        public void Add(string key, int value)
+        {
+            tagCount.Add(new Tag(key, value));
+        }
+
+        public TagContainer Remove(Tag tag)
+        {
+            tagCount.Remove(tag);
+            return this;
+        }
+
+        public IEnumerator<Tag> GetEnumerator()
+        {
+            return tagCount.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return tagCount.GetEnumerator();
         }
     }
 }

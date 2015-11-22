@@ -1,34 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TagCloud
 {
     public class ParserToTagContainer
     {
-        private List<string> words;
         private readonly string text;
-         
-        public ParserToTagContainer(string text)
-        {
 
-            words = new List<string>();
-            this.text = text;
+        public ParserToTagContainer(Options options)
+        {
+            text = File.OpenText(options.FileName).ReadToEnd();
         }
 
-        public TagContainer Parse()
+        public Dictionary<string, int> Parse()
         {
             var words = new Dictionary<string, int>();
-            foreach (var e in text.Split())
+
+            foreach (var e in text.Split().Select(e => e.Trim('.', '(', ')', ',', ':').ToLower()).Where(e => e != ""))
             {
                 if (!words.ContainsKey(e))
                     words.Add(e, 1);
                 else
                     words[e]++;
             }
-            return new TagContainer(words);
+
+            return words;
         }
     }
 }
