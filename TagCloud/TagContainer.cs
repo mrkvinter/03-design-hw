@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 
 namespace TagCloud
@@ -11,6 +12,13 @@ namespace TagCloud
         public TagContainer()
         {
             tagCount = new List<Tag>();
+        }
+
+        public TagContainer(Dictionary<string, int> container)
+        {
+            tagCount = new List<Tag>();
+            foreach (var tag in container.Select(e => new Tag(e.Key, e.Value)))
+                tagCount.Add(tag);
         }
 
         public Tag this[string name]

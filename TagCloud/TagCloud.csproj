@@ -37,6 +37,10 @@
       <HintPath>packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NHunspell, Version=1.2.5554.16953, Culture=neutral, PublicKeyToken=1ac793ea843b4366, processorArchitecture=MSIL">
+      <HintPath>packages\NHunspell.1.2.5554.16953\lib\net\NHunspell.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
       <Private>True</Private>
@@ -57,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithm\IAlgorithm.cs" />
     <Compile Include="Algorithm\IAlgorithmMakeTagCloud.cs" />
     <Compile Include="Client\ConsoleClient.cs" />
     <Compile Include="Client\GUIClient.cs">
@@ -64,29 +69,39 @@
     </Compile>
     <Compile Include="Client\IClient.cs" />
     <Compile Include="Options.cs" />
-    <Compile Include="Parameter\Color.cs" />
-    <Compile Include="Parameter\Font.cs" />
-    <Compile Include="Parameter\IParameter.cs" />
-    <Compile Include="Parameter\Position.cs" />
-    <Compile Include="Parameter\RectangleTag.cs" />
-    <Compile Include="Parameter\Rotate.cs" />
-    <Compile Include="Parameter\Size.cs" />
-    <Compile Include="ParserToTagContainer.cs" />
+    <Compile Include="Parameters.cs" />
+    <Compile Include="Parser\ParserTextToTagContainer.cs" />
+    <Compile Include="Parser\IParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reader\IReader.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="TagContainer.cs" />
+    <Compile Include="ViewTagCloud\IView.cs" />
     <Compile Include="ViewTagCloud\ViewPngImage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="ru_RU.aff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ru_RU.dic">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Hunspellx64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Hunspellx86.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="tags.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

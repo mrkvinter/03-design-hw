@@ -1,19 +1,22 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using TagCloud.Algorithm;
-using TagCloud.Parameter;
+using TagCloud;
 
 namespace TagCloud.ViewTagCloud
 {
     public class ViewPngImage
+        : IView
     {
         private readonly int height;
         private readonly int width;
+        private string fileImageName;
 
-        public ViewPngImage(BaseAlgorithm algo)
+        public ViewPngImage(SampleAlgorithm algo, Options options)
         {    
             height = algo.Height;
             width = algo.Width;
+            fileImageName = options.FileNameSaveImage;
         }
 
         public void CreateImage(TagContainer tags)
@@ -40,7 +43,7 @@ namespace TagCloud.ViewTagCloud
                         new Rectangle(position.X, position.Y, size.Width, size.Height));
                 }
             }
-            img.Save("image.bmp");
+            img.Save(fileImageName);
         }
     }
 }

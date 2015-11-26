@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using TagCloud.Parameter;
+using System.Linq;
+using TagCloud;
 
 namespace TagCloud
 {
@@ -7,13 +8,13 @@ namespace TagCloud
     {
         public string Name { get; private set; }
         public int Count { get; private set; }
-        private List<IParameter> parameters;
+        private List<Parameters> parameters;
 
         public Tag(string name, int Count)
         {
             Name = name;
             this.Count = Count;
-            parameters = new List<IParameter>();
+            parameters = new List<Parameters>();
         }
 
         public T GetParameter<T>()
@@ -23,10 +24,13 @@ namespace TagCloud
                     return (T)e;
             return default(T);
         }
-        public void SetParameter<T>(T parameter) where T : IParameter
+        public void SetParameter<T>(T parameter) where T : Parameters
         {
+            foreach (var param in parameters.ToList().OfType<T>())
+                parameters.Remove(param);
             parameters.Add(parameter);
         }
+
         public override int GetHashCode()
         {
             return Name.GetHashCode();
@@ -36,6 +40,11 @@ namespace TagCloud
         {
             var otherTag = obj as Tag;
             return otherTag != null && otherTag.Name == Name;
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

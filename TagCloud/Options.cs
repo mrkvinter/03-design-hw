@@ -7,7 +7,8 @@ namespace TagCloud
     {
         public Options(string[] args)
         {
-            Parser.Default.ParseArguments(args, this);
+
+            CommandLine.Parser.Default.ParseArguments(args, this);
         }
 
         [Option('f', "file", Required = true, HelpText = "Input file name for make tag cloud.")]
@@ -15,6 +16,9 @@ namespace TagCloud
 
         [Option('c', "client", DefaultValue = "console", HelpText = "Client for work.")]
         public string Client { get; set; }
+
+        [Option('s', "fileSave", Required = true, HelpText = "Input file name for save iamge.")]
+        public string FileNameSaveImage { get; set; }
 
         [HelpOption]
         public string GetUsage()

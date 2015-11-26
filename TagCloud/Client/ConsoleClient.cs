@@ -9,12 +9,11 @@ namespace TagCloud.Client
         : IClient
     {
         private readonly Dictionary<string, int> container;
-        private readonly BaseAlgorithm algo;
+        private readonly IAlgorithm algo;
         private readonly ViewPngImage viewer;
 
-        public ConsoleClient(ParserToTagContainer parser, BaseAlgorithm algo, ViewPngImage viewer)
+        public ConsoleClient(IAlgorithm algo, ViewPngImage viewer)
         {
-            container = parser.Parse();
             this.algo = algo;
             this.viewer = viewer;
         }
@@ -24,7 +23,8 @@ namespace TagCloud.Client
         public void Run()
         {
             Console.WriteLine("Tag container: " + (container != null ? "there's." : "none."));
-            viewer.CreateImage(algo.ApplyAlgorithm(container));
+            viewer.CreateImage(algo               
+                .ApplyAlgorithm());
         }
     }
 }
