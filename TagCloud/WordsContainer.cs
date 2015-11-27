@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace TagCloud
+namespace WordsCloud
 {
-    public class TagContainer : IEnumerable<Tag>
+    public class WordsContainer : IEnumerable<Word>
     {
-        private readonly List<Tag> tagCount;
+        private readonly List<Word> tagCount;
 
-        public TagContainer()
+        public WordsContainer()
         {
-            tagCount = new List<Tag>();
+            tagCount = new List<Word>();
         }
 
-        public TagContainer(Dictionary<string, int> container)
+        public WordsContainer(Dictionary<string, int> container)
         {
-            tagCount = new List<Tag>();
-            foreach (var tag in container.Select(e => new Tag(e.Key, e.Value)))
+            tagCount = new List<Word>();
+            foreach (var tag in container.Select(e => new Word(e.Key, e.Value)))
                 tagCount.Add(tag);
         }
 
-        public Tag this[string name]
+        public Word this[string name]
         {
             get
             {
@@ -34,16 +34,16 @@ namespace TagCloud
 
         public void Add(string key, int value)
         {
-            tagCount.Add(new Tag(key, value));
+            tagCount.Add(new Word(key, value));
         }
 
-        public TagContainer Remove(Tag tag)
+        public WordsContainer Remove(Word word)
         {
-            tagCount.Remove(tag);
+            tagCount.Remove(word);
             return this;
         }
 
-        public IEnumerator<Tag> GetEnumerator()
+        public IEnumerator<Word> GetEnumerator()
         {
             return tagCount.GetEnumerator();
         }

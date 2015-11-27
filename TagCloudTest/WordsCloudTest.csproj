@@ -43,14 +43,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlgorithmTest.cs" />
-    <Compile Include="ParserToTagTest.cs" />
+    <Compile Include="ParserToWordsContainerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TagContainerTest.cs" />
+    <Compile Include="WordsContainerTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TagCloud\TagCloud.csproj">
+    <ProjectReference Include="..\TagCloud\WordsCloud.csproj">
       <Project>{d0c2cb86-a078-4722-bca8-8c56efc14ddc}</Project>
-      <Name>TagCloud</Name>
+      <Name>WordsCloud</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

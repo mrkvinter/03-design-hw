@@ -62,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithm\IAlgorithm.cs" />
-    <Compile Include="Algorithm\IAlgorithmMakeTagCloud.cs" />
+    <Compile Include="Algorithm\SampleAlgorithm.cs" />
     <Compile Include="Client\ConsoleClient.cs" />
     <Compile Include="Client\GUIClient.cs">
       <SubType>Form</SubType>
@@ -70,15 +70,15 @@
     <Compile Include="Client\IClient.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Parameters.cs" />
-    <Compile Include="Parser\ParserTextToTagContainer.cs" />
+    <Compile Include="Parser\ParserTextToWordsContainer.cs" />
     <Compile Include="Parser\IParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reader\IReader.cs" />
-    <Compile Include="Tag.cs" />
-    <Compile Include="TagContainer.cs" />
-    <Compile Include="ViewTagCloud\IView.cs" />
-    <Compile Include="ViewTagCloud\ViewPngImage.cs" />
+    <Compile Include="Word.cs" />
+    <Compile Include="WordsContainer.cs" />
+    <Compile Include="ViewWordesCloud\IView.cs" />
+    <Compile Include="ViewWordesCloud\ViewPngImage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -97,7 +97,7 @@
     <None Include="Hunspellx86.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="tags.txt">
+    <Content Include="text.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

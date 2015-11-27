@@ -1,11 +1,11 @@
 ﻿using System.Windows.Forms;
 
-namespace TagCloud.Client
+namespace WordsCloud.Client
 {
     class GuiClient
         : Form, IClient
     {
-        public GuiClient(TagContainer container = null)
+        public GuiClient(WordsContainer container = null)
         {
             Name = "GUI";
         }

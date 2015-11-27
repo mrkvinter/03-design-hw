@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using TagCloud.Algorithm;
-using TagCloud.ViewTagCloud;
+using WordsCloud.Algorithm;
+using WordsCloud.ViewWordsCloud;
 
-namespace TagCloud.Client
+namespace WordsCloud.Client
 {
     class ConsoleClient
         : IClient
@@ -22,7 +22,7 @@ namespace TagCloud.Client
 
         public void Run()
         {
-            Console.WriteLine("Tag container: " + (container != null ? "there's." : "none."));
+            Console.WriteLine("Word container: " + (container != null ? "there's." : "none."));
             viewer.CreateImage(algo               
                 .ApplyAlgorithm());
         }

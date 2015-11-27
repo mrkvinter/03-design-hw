@@ -1,9 +1,7 @@
 ﻿using System.Drawing;
-using System.Windows.Forms;
-using TagCloud.Algorithm;
-using TagCloud;
+using WordsCloud.Algorithm;
 
-namespace TagCloud.ViewTagCloud
+namespace WordsCloud.ViewWordsCloud
 {
     public class ViewPngImage
         : IView
@@ -19,26 +17,26 @@ namespace TagCloud.ViewTagCloud
             fileImageName = options.FileNameSaveImage;
         }
 
-        public void CreateImage(TagContainer tags)
+        public void CreateImage(WordsContainer words)
         {
             Image img = new Bitmap(width, height);
             using (var g = Graphics.FromImage(img))
             { 
                 g.Clear(Color.White);
 
-                foreach (var tag in tags)
+                foreach (var word in words)
                 {
-                    var size = tag.GetParameter<RectangleTag>() ?? new RectangleTag(100, 100);
-                    var position = tag.GetParameter<Position>();
-                    var fontTag = tag.GetParameter<FontTag>()?.Font ?? SystemFonts.DefaultFont;
-                    var color = tag.GetParameter<ColorTag>()?.Color ?? Color.Black;
+                    var size = word.GetParameter<RectangleWord>() ?? new RectangleWord(100, 100);
+                    var position = word.GetParameter<Position>();
+                    var fontWord = word.GetParameter<FontWord>()?.Font ?? SystemFonts.DefaultFont;
+                    var color = word.GetParameter<ColorWord>()?.Color ?? Color.Black;
 
                     var text = new Bitmap(size.Width, size.Height);
                     var graphText = Graphics.FromImage(text);
                      
                     g.DrawString(
-                        tag.Name, 
-                        fontTag,
+                        word.Name, 
+                        fontWord,
                         new SolidBrush(color), 
                         new Rectangle(position.X, position.Y, size.Width, size.Height));
                 }

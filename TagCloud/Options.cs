@@ -1,7 +1,7 @@
 ﻿using CommandLine;
 using System.Text;
 
-namespace TagCloud
+namespace WordsCloud
 {
     public class Options
     {

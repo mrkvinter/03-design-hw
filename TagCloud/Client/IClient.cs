@@ -1,4 +1,4 @@
-﻿namespace TagCloud.Client
+﻿namespace WordsCloud.Client
 {
     public interface IClient
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TagCloud.Parser
+namespace WordsCloud.Parser
 {
     public interface IParser
     {

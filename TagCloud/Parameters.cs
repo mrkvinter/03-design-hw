@@ -1,24 +1,24 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace TagCloud
+namespace WordsCloud
 {
     public interface Parameters { }
 
-    public class ColorTag : Parameters
+    public class ColorWord : Parameters
     {
         public readonly Color Color;
 
-        public ColorTag(Color color)
+        public ColorWord(Color color)
         {
             Color = color;
         }
     }
 
-    public class FontTag : Parameters
+    public class FontWord : Parameters
     {
         public Font Font;
-        public FontTag(string fontName, int size = 8)
+        public FontWord(string fontName, int size = 8)
         {
             Font = new Font(fontName, size);
         }
@@ -36,22 +36,22 @@ namespace TagCloud
         }
     }
 
-    public class RectangleTag : Parameters
+    public class RectangleWord : Parameters
     {
         public int Width;
         public int Height;
 
-        public RectangleTag(int width, int height)
+        public RectangleWord(int width, int height)
         {
             Width = width;
             Height = height;
         }
 
-        public RectangleTag(Tag tag)
+        public RectangleWord(Word word)
         {
-            var font = tag.GetParameter<FontTag>()?.Font ?? SystemFonts.DefaultFont;
+            var font = word.GetParameter<FontWord>()?.Font ?? SystemFonts.DefaultFont;
 
-            var r = TextRenderer.MeasureText(tag.Name, font);
+            var r = TextRenderer.MeasureText(word.Name, font);
             Width = r.Width;
             Height = r.Height;
         }
@@ -67,11 +67,11 @@ namespace TagCloud
         }
     }
 
-    public class Size : Parameters
+    public class SizeWord : Parameters
     {
         public int Value { get; private set; }
 
-        public Size(int size)
+        public SizeWord(int size)
         {
             Value = size;
         }

@@ -2,9 +2,9 @@
 using System.Linq;
 using FakeItEasy;
 using NUnit.Framework;
-using TagCloud;
-using TagCloud.Algorithm;
-using TagCloud.Parser;
+using WordsCloud;
+using WordsCloud.Algorithm;
+using WordsCloud.Parser;
 
 namespace TagCloudTest
 {
@@ -21,7 +21,7 @@ namespace TagCloudTest
             var container = algo.ApplyAlgorithm();
 
             var expected = 255;
-            var actual = (int)container["привет"].GetParameter<ColorTag>().Color.A;
+            var actual = (int)container["привет"].GetParameter<ColorWord>().Color.A;
 
             Assert.AreEqual(expected, actual);
         }
@@ -35,8 +35,8 @@ namespace TagCloudTest
             var algo = new SampleAlgorithm(parser);
             var container = algo.ApplyAlgorithm();
 
-            var expected = new Tag("привет", 4);
-            var actual = container.OrderBy(e => e.GetParameter<Size>().Value).Last();
+            var expected = new Word("привет", 4);
+            var actual = container.OrderBy(e => e.GetParameter<SizeWord>().Value).Last();
 
             Assert.AreEqual(expected, actual);
         }

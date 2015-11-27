@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FakeItEasy;
+﻿using FakeItEasy;
 using NUnit.Framework;
-using TagCloud;
-using TagCloud.Reader;
+using WordsCloud;
+using WordsCloud.Reader;
 
 namespace TagCloudTest
 {
     [TestFixture]
-    public class TagContainerTest
+    public class WordsContainerTest
     {
         [Test]
         public void MakeTagContainer_Text_TagContainer()
@@ -20,10 +15,10 @@ namespace TagCloudTest
 
             var reader = A.Fake<IReader>();
             A.CallTo(() => reader.ReadAll()).Returns(data);
-            var parser = new ParserTextToTagContainer(reader);
+            var parser = new ParserTextToWordsContainer(reader);
 
-            var expected = new TagContainer{ { "word1", 2}, { "word2", 1}  };
-            var actual = new TagContainer(parser.Parse());
+            var expected = new WordsContainer{ { "word1", 2}, { "word2", 1}  };
+            var actual = new WordsContainer(parser.Parse());
 
             CollectionAssert.AreEquivalent(expected, actual);
         }
@@ -35,10 +30,10 @@ namespace TagCloudTest
 
             var reader = A.Fake<IReader>();
             A.CallTo(() => reader.ReadAll()).Returns(data);
-            var parser = new ParserTextToTagContainer(reader);
+            var parser = new ParserTextToWordsContainer(reader);
 
-            var expected = new TagContainer { { "рыба", 2 }, { "нести", 1 } };
-            var actual = new TagContainer(parser.Parse());
+            var expected = new WordsContainer { { "рыба", 2 }, { "нести", 1 } };
+            var actual = new WordsContainer(parser.Parse());
 
             CollectionAssert.AreEquivalent(expected, actual);
         }

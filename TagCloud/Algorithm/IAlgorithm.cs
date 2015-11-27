@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TagCloud;
+using WordsCloud;
 
-namespace TagCloud.Algorithm
+namespace WordsCloud.Algorithm
 {
     public interface IAlgorithm
     {
-        TagContainer ApplyAlgorithm();
+        WordsContainer ApplyAlgorithm();
     }
 }

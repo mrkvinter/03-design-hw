@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using TagCloud.Parser;
 using NHunspell;
-using TagCloud.Reader;
+using WordsCloud.Parser;
+using WordsCloud.Reader;
 
-namespace TagCloud
+namespace WordsCloud
 {
-    public class ParserTextToTagContainer
+    public class ParserTextToWordsContainer
         : IParser
     {
         private readonly string text;
 
-        public ParserTextToTagContainer(IReader reader)
+        public ParserTextToWordsContainer(IReader reader)
         {
             text = reader.ReadAll();
         }

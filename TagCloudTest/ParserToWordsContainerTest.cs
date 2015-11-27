@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
-using TagCloud;
+using WordsCloud;
 using FakeItEasy;
-using TagCloud.Reader;
+using WordsCloud.Reader;
 
 namespace TagCloudTest
 {
     [TestFixture]
-    public class ParserToTagTest
+    public class ParserToWordsContainerTest
     {
         [Test]
         public void OneWordOnLine_TagContainerCountLine()
@@ -17,7 +17,7 @@ namespace TagCloudTest
             
             var reader = A.Fake<IReader>();
             A.CallTo(() => reader.ReadAll()).Returns(data);
-            var parser = new ParserTextToTagContainer(reader);
+            var parser = new ParserTextToWordsContainer(reader);
              
             var expected = new Dictionary<string, int> { {"word1", 1}, {"word2", 1}, {"word3", 1} };
             var actual = parser.Parse();
@@ -31,7 +31,7 @@ namespace TagCloudTest
             var data = "Hello HELLO hello hElLo";
             var reader = A.Fake<IReader>();
             A.CallTo(() => reader.ReadAll()).Returns(data);
-            var parser = new ParserTextToTagContainer(reader);
+            var parser = new ParserTextToWordsContainer(reader);
 
             var expected = new Dictionary<string, int> { { "hello", 4 }};
             var actual = parser.Parse();
@@ -45,7 +45,7 @@ namespace TagCloudTest
             var data = "";
             var reader = A.Fake<IReader>();
             A.CallTo(() => reader.ReadAll()).Returns(data);
-            var parser = new ParserTextToTagContainer(reader);
+            var parser = new ParserTextToWordsContainer(reader);
 
             var actual = parser.Parse();
 
@@ -58,7 +58,7 @@ namespace TagCloudTest
             var data = "Рыба рыбу рыбы рыбой";
             var reader = A.Fake<IReader>();
             A.CallTo(() => reader.ReadAll()).Returns(data);
-            var parser = new ParserTextToTagContainer(reader);
+            var parser = new ParserTextToWordsContainer(reader);
 
             var expected = new Dictionary<string, int> { { "рыба", 4 } };
             var actual = parser.Parse();

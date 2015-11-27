@@ -1,19 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TagCloud;
 
-namespace TagCloud
+namespace WordsCloud
 {
-    public class Tag
+    public class Word
     {
-        public string Name { get; private set; }
+        public string Name { get; }
         public int Count { get; private set; }
-        private List<Parameters> parameters;
+        private readonly List<Parameters> parameters;
 
-        public Tag(string name, int Count)
+        public Word(string name, int count)
         {
             Name = name;
-            this.Count = Count;
+            Count = count;
             parameters = new List<Parameters>();
         }
 
@@ -38,7 +37,7 @@ namespace TagCloud
 
         public override bool Equals(object obj)
         {
-            var otherTag = obj as Tag;
+            var otherTag = obj as Word;
             return otherTag != null && otherTag.Name == Name;
         }
 
