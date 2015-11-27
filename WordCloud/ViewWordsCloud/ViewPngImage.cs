@@ -8,9 +8,9 @@ namespace WordsCloud.ViewWordsCloud
     {
         private readonly int height;
         private readonly int width;
-        private string fileImageName;
+        private readonly string fileImageName;
 
-        public ViewPngImage(SampleAlgorithm algo, Options options)
+        public ViewPngImage(IAlgorithm algo, Options options)
         {    
             height = algo.Height;
             width = algo.Width;
@@ -31,9 +31,6 @@ namespace WordsCloud.ViewWordsCloud
                     var fontWord = word.GetParameter<FontWord>()?.Font ?? SystemFonts.DefaultFont;
                     var color = word.GetParameter<ColorWord>()?.Color ?? Color.Black;
 
-                    var text = new Bitmap(size.Width, size.Height);
-                    var graphText = Graphics.FromImage(text);
-                     
                     g.DrawString(
                         word.Name, 
                         fontWord,

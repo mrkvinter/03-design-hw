@@ -3,9 +3,9 @@ using System.Windows.Forms;
 
 namespace WordsCloud
 {
-    public interface Parameters { }
+    public interface IParameter { }
 
-    public class ColorWord : Parameters
+    public class ColorWord : IParameter
     {
         public readonly Color Color;
 
@@ -15,7 +15,7 @@ namespace WordsCloud
         }
     }
 
-    public class FontWord : Parameters
+    public class FontWord : IParameter
     {
         public Font Font;
         public FontWord(string fontName, int size = 8)
@@ -24,7 +24,7 @@ namespace WordsCloud
         }
     }
 
-    public class Position : Parameters
+    public class Position : IParameter
     {
         public int X { get; private set; }
         public int Y { get; private set; }
@@ -36,7 +36,7 @@ namespace WordsCloud
         }
     }
 
-    public class RectangleWord : Parameters
+    public class RectangleWord : IParameter
     {
         public int Width;
         public int Height;
@@ -57,7 +57,7 @@ namespace WordsCloud
         }
     }
 
-    public class Rotate : Parameters
+    public class Rotate : IParameter
     {
         public double Value;
 
@@ -67,7 +67,7 @@ namespace WordsCloud
         }
     }
 
-    public class SizeWord : Parameters
+    public class SizeWord : IParameter
     {
         public int Value { get; private set; }
 

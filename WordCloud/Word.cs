@@ -7,13 +7,13 @@ namespace WordsCloud
     {
         public string Name { get; }
         public int Count { get; private set; }
-        private readonly List<Parameters> parameters;
+        private readonly List<IParameter> parameters;
 
         public Word(string name, int count)
         {
             Name = name;
             Count = count;
-            parameters = new List<Parameters>();
+            parameters = new List<IParameter>();
         }
 
         public T GetParameter<T>()
@@ -23,7 +23,7 @@ namespace WordsCloud
                     return (T)e;
             return default(T);
         }
-        public void SetParameter<T>(T parameter) where T : Parameters
+        public void SetParameter<T>(T parameter) where T : IParameter
         {
             foreach (var param in parameters.ToList().OfType<T>())
                 parameters.Remove(param);

@@ -10,16 +10,16 @@ namespace WordsCloud.Reader
     public class FileReader
         : IReader
     {
-        private string fileName { get; }
+        private string FileName { get; }
 
         public FileReader(Options options)
         {
-            fileName = options.FileName;
+            FileName = options.FileName;
         }
 
         public string ReadAll()
         {
-            return File.OpenText(fileName).ReadToEnd();
+            return File.OpenText(FileName).ReadToEnd();
         }
     }
 }
