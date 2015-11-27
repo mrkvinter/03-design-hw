@@ -48,7 +48,7 @@
     <Compile Include="WordsContainerTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TagCloud\WordsCloud.csproj">
+    <ProjectReference Include="..\WordCloud\WordsCloud.csproj">
       <Project>{d0c2cb86-a078-4722-bca8-8c56efc14ddc}</Project>
       <Name>WordsCloud</Name>
     </ProjectReference>

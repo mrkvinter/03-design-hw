@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordsCloud", "WordsCloud.csproj", "{D0C2CB86-A078-4722-BCA8-8C56EFC14DDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordsCloudTest", "..\TagCloudTest\WordsCloudTest.csproj", "{067456C0-086C-46A8-B37F-1405717B7BFC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordsCloudTest", "..\WordCloudTest\WordsCloudTest.csproj", "{067456C0-086C-46A8-B37F-1405717B7BFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

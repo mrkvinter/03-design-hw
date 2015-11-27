@@ -77,8 +77,8 @@
     <Compile Include="Reader\IReader.cs" />
     <Compile Include="Word.cs" />
     <Compile Include="WordsContainer.cs" />
-    <Compile Include="ViewWordesCloud\IView.cs" />
-    <Compile Include="ViewWordesCloud\ViewPngImage.cs" />
+    <Compile Include="ViewWordsCloud\IView.cs" />
+    <Compile Include="ViewWordsCloud\ViewPngImage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
