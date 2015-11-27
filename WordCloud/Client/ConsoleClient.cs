@@ -10,9 +10,9 @@ namespace WordsCloud.Client
     {
         private readonly Dictionary<string, int> container;
         private readonly IAlgorithm algo;
-        private readonly ViewPngImage viewer;
+        private readonly IView viewer;
 
-        public ConsoleClient(IAlgorithm algo, ViewPngImage viewer)
+        public ConsoleClient(IAlgorithm algo, IView viewer)
         {
             this.algo = algo;
             this.viewer = viewer;
