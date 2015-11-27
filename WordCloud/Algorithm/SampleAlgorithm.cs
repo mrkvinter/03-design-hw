@@ -11,7 +11,7 @@ namespace WordsCloud.Algorithm
     {
         public WordsContainer Container { get; }
         public int Width { get; private set; } = 1280;
-        public int Height { get; private set; } = 720;
+        public int Height { get; private set; } = 750;
 
 
         public SampleAlgorithm(IParser parser)
@@ -69,7 +69,7 @@ namespace WordsCloud.Algorithm
                 widthWordes += size.Width;
                 wordesOnLine.Add(word);
             }
-            Height = shiftY;
+            Height = shiftY + maxHeightWord;
             return this;
         }
 

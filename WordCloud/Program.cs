@@ -27,8 +27,16 @@ namespace WordsCloud
             
             kernel.Bind<IAlgorithm>().To<SampleAlgorithm>();
             kernel.Bind<WordsContainer>().ToSelf();
-            kernel.Bind<IParser>().To<ParserTextToWordsContainer>();
-            kernel.Bind<IReader>().To<FileReader>();
+
+            
+            kernel.Bind<IParser>().To<ParserTextToWordsContainer>()
+                .WithConstructorArgument("readerText",
+                                         context => new FileReader(context.Kernel.Get<Options>().FileName)
+                                         )
+                .WithConstructorArgument("dullWords",
+                                         context => new FileReader(context.Kernel.Get<Options>().FileNameDull));
+
+            //kernel.Bind<IReader>().To<FileReader>();
             kernel.Bind<IView>().To<ViewPngImage>();
             kernel.Bind<IClient>().To<ConsoleClient>();
             kernel.Bind<IClient>().To<GuiClient>();

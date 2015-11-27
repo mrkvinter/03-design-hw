@@ -20,11 +20,15 @@ namespace WordsCloud
         [Option('s', "fileSave", Required = true, HelpText = "Input file name for save iamge.")]
         public string FileNameSaveImage { get; set; }
 
+        [Option('d', "fileDull", HelpText = "Input file name with dull words.")]
+        public string FileNameDull { get; set; }
+
+
         [HelpOption]
         public string GetUsage()
         {
             var usage = new StringBuilder();
-            usage.AppendLine("TagCloud Creator.");
+            usage.AppendLine("WordsCloud Creator.");
             usage.AppendLine("==================================");
             usage.AppendLine("Version Application: 0.01b");
             usage.AppendLine("Read user manual for usage instructions...");

@@ -69,7 +69,7 @@
     </Compile>
     <Compile Include="Client\IClient.cs" />
     <Compile Include="Options.cs" />
-    <Compile Include="Parameters.cs" />
+    <Compile Include="IParameter.cs" />
     <Compile Include="Parser\ParserTextToWordsContainer.cs" />
     <Compile Include="Parser\IParser.cs" />
     <Compile Include="Program.cs" />
@@ -97,6 +97,9 @@
     <None Include="Hunspellx86.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="DullWords.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="text.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

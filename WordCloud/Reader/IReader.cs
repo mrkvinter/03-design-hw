@@ -12,9 +12,9 @@ namespace WordsCloud.Reader
     {
         private string FileName { get; }
 
-        public FileReader(Options options)
+        public FileReader(string name)
         {
-            FileName = options.FileName;
+            FileName = name;
         }
 
         public string ReadAll()

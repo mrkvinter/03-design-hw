@@ -7,50 +7,50 @@ namespace WordsCloud
 {
     public class WordsContainer : IEnumerable<Word>
     {
-        private readonly List<Word> tagCount;
+        private readonly List<Word> words;
 
         public WordsContainer()
         {
-            tagCount = new List<Word>();
+            words = new List<Word>();
         }
 
         public WordsContainer(Dictionary<string, int> container)
         {
-            tagCount = new List<Word>();
-            foreach (var tag in container.Select(e => new Word(e.Key, e.Value)))
-                tagCount.Add(tag);
+            words = new List<Word>();
+            foreach (var word in container.Select(e => new Word(e.Key, e.Value)))
+                words.Add(word);
         }
 
         public Word this[string name]
         {
             get
             {
-                foreach (var e in tagCount)
-                    if (e.Name == name)
-                        return e;
+                foreach (var word in words)
+                    if (word.Name == name)
+                        return word;
                 throw new KeyNotFoundException();
             }
         }
 
         public void Add(string key, int value)
         {
-            tagCount.Add(new Word(key, value));
+            words.Add(new Word(key, value));
         }
 
         public WordsContainer Remove(Word word)
         {
-            tagCount.Remove(word);
+            words.Remove(word);
             return this;
         }
 
         public IEnumerator<Word> GetEnumerator()
         {
-            return tagCount.GetEnumerator();
+            return words.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return tagCount.GetEnumerator();
+            return words.GetEnumerator();
         }
     }
 }

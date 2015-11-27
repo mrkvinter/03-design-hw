@@ -15,7 +15,7 @@ namespace TagCloudTest
 
             var reader = A.Fake<IReader>();
             A.CallTo(() => reader.ReadAll()).Returns(data);
-            var parser = new ParserTextToWordsContainer(reader);
+            var parser = new ParserTextToWordsContainer(reader, null);
 
             var expected = new WordsContainer{ { "word1", 2}, { "word2", 1}  };
             var actual = new WordsContainer(parser.Parse());
@@ -30,7 +30,7 @@ namespace TagCloudTest
 
             var reader = A.Fake<IReader>();
             A.CallTo(() => reader.ReadAll()).Returns(data);
-            var parser = new ParserTextToWordsContainer(reader);
+            var parser = new ParserTextToWordsContainer(reader, null);
 
             var expected = new WordsContainer { { "рыба", 2 }, { "нести", 1 } };
             var actual = new WordsContainer(parser.Parse());

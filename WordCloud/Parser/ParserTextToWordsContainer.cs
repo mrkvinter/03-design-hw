@@ -10,12 +10,21 @@ namespace WordsCloud
         : IParser
     {
         private readonly string text;
+        private readonly List<string> dullWords;
 
-        public ParserTextToWordsContainer(IReader reader)
+        public ParserTextToWordsContainer(IReader readerText, IReader dullWords)
         {
-            text = reader.ReadAll();
+            text = readerText.ReadAll();
+            this.dullWords = dullWords?.ReadAll().Split().ToList() ?? new List<string>();
         }
 
+
+        private bool isDullWord(string word)
+        {
+            return !(word == "" || 
+                   word.Length <= 2 || 
+                   dullWords.Contains(word));
+        }
         public Dictionary<string, int> Parse()
         {
             var words = new Dictionary<string, int>();
@@ -23,7 +32,7 @@ namespace WordsCloud
             var newText = removeChar.Aggregate(text, (current, c) => current.Replace(c, ""));
             using (var hunspell = new Hunspell("ru_RU.aff", "ru_RU.dic"))
             {
-                foreach (var e in newText.ToLower().Split().Where(e => e != "" && e.Length > 2))
+                foreach (var e in newText.ToLower().Split().Where(isDullWord))
                 {
                     var beginWord = hunspell.Stem(e);
                     var word = e;
