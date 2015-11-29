@@ -1,7 +1,9 @@
-﻿namespace WordsCloud.ViewWordsCloud
+﻿using WordsCloud.Algorithm;
+
+namespace WordsCloud.ViewWordsCloud
 {
     public interface IView
     {
-        void CreateImage(WordsContainer words);
+        void CreateImage(IAlgorithm algo);
     }
 }

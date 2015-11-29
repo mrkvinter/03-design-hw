@@ -1,11 +1,13 @@
 ﻿using System.Windows.Forms;
+using WordsCloud.Algorithm;
+using WordsCloud.ViewWordsCloud;
 
 namespace WordsCloud.Client
 {
     class GuiClient
         : Form, IClient
     {
-        public GuiClient(WordsContainer container = null)
+        public GuiClient(IAlgorithm algo, IView viewer)
         {
             Name = "GUI";
         }

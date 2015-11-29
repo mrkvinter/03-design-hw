@@ -4,6 +4,6 @@ namespace WordsCloud.Parser
 {
     public interface IParser
     {
-        Dictionary<string, int> Parse();
+        List<Word> Parse();
     }
 }

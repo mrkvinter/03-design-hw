@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Drawing;
 
 namespace WordsCloud
 {
@@ -7,27 +6,19 @@ namespace WordsCloud
     {
         public string Name { get; }
         public int Count { get; private set; }
-        private readonly List<IParameter> parameters;
+        public Color Color;
+        public Rectangle Rectangle;
+        public int Size;
+        public Font Font;
+
 
         public Word(string name, int count)
         {
             Name = name;
             Count = count;
-            parameters = new List<IParameter>();
-        }
-
-        public T GetParameter<T>()
-        {
-            foreach (var e in parameters)
-                if (e is T)
-                    return (T)e;
-            return default(T);
-        }
-        public void SetParameter<T>(T parameter) where T : IParameter
-        {
-            foreach (var param in parameters.ToList().OfType<T>())
-                parameters.Remove(param);
-            parameters.Add(parameter);
+            Color = Color.Black;
+            Rectangle = Rectangle.Empty;
+            Font = SystemFonts.DefaultFont;
         }
 
         public override int GetHashCode()

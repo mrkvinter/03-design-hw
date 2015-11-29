@@ -23,8 +23,7 @@ namespace WordsCloud.Client
         public void Run()
         {
             Console.WriteLine("Word container: " + (container != null ? "there's." : "none."));
-            viewer.CreateImage(algo               
-                .ApplyAlgorithm());
+            viewer.CreateImage(algo);
         }
     }
 }

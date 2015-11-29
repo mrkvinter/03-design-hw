@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using NHunspell;
 using WordsCloud.Parser;
 using WordsCloud.Reader;
@@ -14,25 +15,24 @@ namespace WordsCloud
 
         public ParserTextToWordsContainer(IReader readerText, IReader dullWords)
         {
-            text = readerText.ReadAll();
-            this.dullWords = dullWords?.ReadAll().Split().ToList() ?? new List<string>();
+            text = readerText.ReadAll() ?? string.Empty;
+            this.dullWords = dullWords.ReadAll()?.Split().ToList() ?? new List<string>();
         }
 
 
         private bool isDullWord(string word)
         {
-            return !(word == "" || 
+            return (word == "" || 
                    word.Length <= 2 || 
                    dullWords.Contains(word));
         }
-        public Dictionary<string, int> Parse()
+        public List<Word> Parse()
         {
             var words = new Dictionary<string, int>();
-            var removeChar = new [] {".", "(", ")", ",", ":"};
-            var newText = removeChar.Aggregate(text, (current, c) => current.Replace(c, ""));
+
             using (var hunspell = new Hunspell("ru_RU.aff", "ru_RU.dic"))
             {
-                foreach (var e in newText.ToLower().Split().Where(isDullWord))
+                foreach (var e in text.ToLower().Split().Select(e => e.CleanTrim()).Where(e => !isDullWord(e)))
                 {
                     var beginWord = hunspell.Stem(e);
                     var word = e;
@@ -43,7 +43,14 @@ namespace WordsCloud
                         words[word]++;
                 }
             }
-            return words;
+            return words.Select(e => new Word(e.Key, e.Value)).ToList();
         }
+    }
+
+    public static class StringExtension
+    {
+        public static string CleanTrim(this string str)
+            => Regex.Replace(str, @"^\W*(\w*)\W*$", "$1");
+        
     }
 }

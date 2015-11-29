@@ -16,10 +16,12 @@ namespace TagCloudTest
             var data = "word1\nword2\nword3\n";
             
             var reader = A.Fake<IReader>();
+            var readerDull = A.Fake<IReader>();
             A.CallTo(() => reader.ReadAll()).Returns(data);
-            var parser = new ParserTextToWordsContainer(reader, null);
+            A.CallTo(() => readerDull.ReadAll()).Returns(null);
+            var parser = new ParserTextToWordsContainer(reader, readerDull);
              
-            var expected = new Dictionary<string, int> { {"word1", 1}, {"word2", 1}, {"word3", 1} };
+            var expected = new List<Word> { new Word("word1", 1), new Word("word2", 1), new Word("word3", 1) };
             var actual = parser.Parse();
 
             CollectionAssert.AreEquivalent(expected, actual);
@@ -30,10 +32,12 @@ namespace TagCloudTest
         {
             var data = "Hello HELLO hello hElLo";
             var reader = A.Fake<IReader>();
+            var readerDull = A.Fake<IReader>();
             A.CallTo(() => reader.ReadAll()).Returns(data);
-            var parser = new ParserTextToWordsContainer(reader, null);
+            A.CallTo(() => readerDull.ReadAll()).Returns(null);
+            var parser = new ParserTextToWordsContainer(reader, readerDull);
 
-            var expected = new Dictionary<string, int> { { "hello", 4 }};
+            var expected = new List<Word> { new Word("hello", 4 ) };
             var actual = parser.Parse();
 
             CollectionAssert.AreEquivalent(expected, actual);
@@ -44,8 +48,10 @@ namespace TagCloudTest
         {
             var data = "";
             var reader = A.Fake<IReader>();
+            var readerDull = A.Fake<IReader>();
             A.CallTo(() => reader.ReadAll()).Returns(data);
-            var parser = new ParserTextToWordsContainer(reader, null);
+            A.CallTo(() => readerDull.ReadAll()).Returns(null);  
+            var parser = new ParserTextToWordsContainer(reader, readerDull);
 
             var actual = parser.Parse();
 
@@ -57,10 +63,12 @@ namespace TagCloudTest
         {
             var data = "Рыба рыбу рыбы рыбой";
             var reader = A.Fake<IReader>();
+            var readerDull = A.Fake<IReader>();
             A.CallTo(() => reader.ReadAll()).Returns(data);
-            var parser = new ParserTextToWordsContainer(reader, null);
+            A.CallTo(() => readerDull.ReadAll()).Returns(null);
+            var parser = new ParserTextToWordsContainer(reader, readerDull);
 
-            var expected = new Dictionary<string, int> { { "рыба", 4 } };
+            var expected = new List<Word> { new Word("рыба", 4 ) };
             var actual = parser.Parse();
 
             CollectionAssert.AreEquivalent(expected, actual);

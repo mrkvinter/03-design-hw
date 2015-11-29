@@ -19,7 +19,7 @@ namespace WordsCloud.Reader
 
         public string ReadAll()
         {
-            return File.OpenText(FileName).ReadToEnd();
+            return File.Exists(FileName) ? File.OpenText(FileName).ReadToEnd() : null;
         }
     }
 }

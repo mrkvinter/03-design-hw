@@ -69,16 +69,14 @@
     </Compile>
     <Compile Include="Client\IClient.cs" />
     <Compile Include="Options.cs" />
-    <Compile Include="IParameter.cs" />
     <Compile Include="Parser\ParserTextToWordsContainer.cs" />
     <Compile Include="Parser\IParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reader\IReader.cs" />
     <Compile Include="Word.cs" />
-    <Compile Include="WordsContainer.cs" />
     <Compile Include="ViewWordsCloud\IView.cs" />
-    <Compile Include="ViewWordsCloud\ViewPngImage.cs" />
+    <Compile Include="ViewWordsCloud\ViewImage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

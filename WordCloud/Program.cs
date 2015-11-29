@@ -18,17 +18,20 @@ namespace WordsCloud
         {
             this.options = options;
             this.clients = clients;
+            if (options.FileName == null)
+                Console.WriteLine("Не было введено имя файла для работы программы.");
+            if (options.FileNameSaveImage == null)
+                Console.WriteLine("Не было введено имя файла для сохранения итогового изображения.");
+            if (options.FileNameDull == null)
+                Console.WriteLine("Список скучных не бы получен.");
         }
 
         private static void Main(string[] args)
         {
             var kernel = new StandardKernel();
             kernel.Bind<Options>().ToSelf().WithConstructorArgument(args);
-            
             kernel.Bind<IAlgorithm>().To<SampleAlgorithm>();
-            kernel.Bind<WordsContainer>().ToSelf();
 
-            
             kernel.Bind<IParser>().To<ParserTextToWordsContainer>()
                 .WithConstructorArgument("readerText",
                                          context => new FileReader(context.Kernel.Get<Options>().FileName)
@@ -36,7 +39,6 @@ namespace WordsCloud
                 .WithConstructorArgument("dullWords",
                                          context => new FileReader(context.Kernel.Get<Options>().FileNameDull));
 
-            //kernel.Bind<IReader>().To<FileReader>();
             kernel.Bind<IView>().To<ViewPngImage>();
             kernel.Bind<IClient>().To<ConsoleClient>();
             kernel.Bind<IClient>().To<GuiClient>();
@@ -48,6 +50,9 @@ namespace WordsCloud
 
         public IClient GetClient()
         {
+            if (options.Client == null)
+                return clients.First();
+
             return clients.FirstOrDefault(c => c.Name.Equals(options.Client, StringComparison.InvariantCultureIgnoreCase));
         }
     }

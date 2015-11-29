@@ -22,17 +22,5 @@ namespace WordsCloud
 
         [Option('d', "fileDull", HelpText = "Input file name with dull words.")]
         public string FileNameDull { get; set; }
-
-
-        [HelpOption]
-        public string GetUsage()
-        {
-            var usage = new StringBuilder();
-            usage.AppendLine("WordsCloud Creator.");
-            usage.AppendLine("==================================");
-            usage.AppendLine("Version Application: 0.01b");
-            usage.AppendLine("Read user manual for usage instructions...");
-            return usage.ToString();
-        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using WordsCloud.Parser;
 
 namespace WordsCloud.Algorithm
@@ -9,36 +10,36 @@ namespace WordsCloud.Algorithm
     public class SampleAlgorithm
         : IAlgorithm
     {
-        public WordsContainer Container { get; }
+        public List<Word> Container { get; }
         public int Width { get; private set; } = 1280;
-        public int Height { get; private set; } = 750;
+
+        public int Height
+        {
+            get { return 10 + Container.Max(e => e.Rectangle.Y + e.Rectangle.Height); }
+        }
 
 
         public SampleAlgorithm(IParser parser)
         {
-            Container = new WordsContainer(parser.Parse());
+            Container = parser.Parse();
         }
 
-        public WordsContainer ApplyAlgorithm()
+        public List<Word> ApplyAlgorithm()
         {
-            var newAlgo = 
-                     SetSizeWord()
-                    .SetFontWord()
-                    .SetColorWord()
-                    .SetRectangleAreaWord()
-                    .SetPosition();
-            return newAlgo.Container;
-
+            SetSizeWord();
+            SetFontWord();
+            SetColorWord();
+            SetRectangleAreaWord();
+            SetPosition();
+            return Container;
         }
 
-        public SampleAlgorithm SetSizeImage(int w, int h)
+        public void SetSizeImage(int w)
         {
             Width = w;
-            Height = h;
-            return this;
         }
 
-        private SampleAlgorithm SetPosition()
+        private void SetPosition()
         {
             var rnd = new Random(DateTime.Now.Millisecond);
             var orderContainer = Container.OrderByDescending(e => rnd.NextDouble()).ToList();
@@ -49,15 +50,14 @@ namespace WordsCloud.Algorithm
             var wordesOnLine = new List<Word>();
             foreach (var word in orderContainer)
             {
-                var size = word.GetParameter<RectangleWord>();
+                var size = word.Rectangle;
                 if (widthWordes + size.Width > Width)
                 {
-                    var maxHeightOnLine = wordesOnLine.Max(e => e.GetParameter<RectangleWord>().Height) / 2.0;
+                    var maxHeightOnLine = wordesOnLine.Max(e => e.Rectangle.Height) / 2.0;
                     foreach (var e in wordesOnLine)
                     {
-                        var oldX = e.GetParameter<Position>().X;
-                        e.SetParameter(new Position(oldX,
-                            (int)(shiftY + maxHeightOnLine - e.GetParameter<RectangleWord>().Height / 2.0)));
+                        var oldX = e.Rectangle.X;
+                        e.Rectangle.Location = new Point(oldX, (int)(shiftY + maxHeightOnLine - e.Rectangle.Height / 2.0));
                     }
                     widthWordes = 0;
                     shiftY += maxHeightWord;
@@ -65,15 +65,13 @@ namespace WordsCloud.Algorithm
                     wordesOnLine.Clear();
                 }
                 if (size.Height > maxHeightWord) maxHeightWord = size.Height;
-                word.SetParameter(new Position(widthWordes, shiftY));
+                word.Rectangle.Location = new Point(widthWordes, shiftY);
                 widthWordes += size.Width;
                 wordesOnLine.Add(word);
             }
-            Height = shiftY + maxHeightWord;
-            return this;
         }
 
-        private SampleAlgorithm SetSizeWord()
+        private void SetSizeWord()
         {
             var orderContainer = Container.OrderBy(e => e.Count).ToList();
             var count = orderContainer.Count;
@@ -81,37 +79,37 @@ namespace WordsCloud.Algorithm
             foreach (var word in orderContainer)
             {
                 var factor = index++/ count;
-                word.SetParameter(new SizeWord(10 + (int) (18*factor)));
+                word.Size = 10 + (int)(18 * factor);
             }
-
-            return this;
         }
 
-        private SampleAlgorithm SetFontWord()
+        private void SetFontWord()
         {
             foreach (var word in Container)
-                word.SetParameter(new FontWord("Monaco", word.GetParameter<SizeWord>().Value));
-            return this;
+                word.Font = new Font("Monaco", word.Size);
         }
 
-        private SampleAlgorithm SetColorWord()
+        private void SetColorWord()
         {
-            var countWord = Container.Count();
+            var countWord = Container.Count;
             var orderContainer = Container.OrderBy(e => e.Count).ToList();
             var index = 1.0;
             foreach (var word in orderContainer)
             {
                 var alpha = (int)Math.Max(255*(index++ / countWord), 40.0);
-                word.SetParameter(new ColorWord(Color.FromArgb(alpha, 0, 0, 0)));
+                word.Color = Color.FromArgb(alpha, 0, 0, 0);
             }
-            return this;
         }
 
-        private SampleAlgorithm SetRectangleAreaWord()
+        private void SetRectangleAreaWord()
         {
             foreach (var word in Container)
-                word.SetParameter(new RectangleWord(word));
-            return this;
+            {
+                var font = word.Font;
+                var renderText = TextRenderer.MeasureText(word.Name, font);
+
+                word.Rectangle.Size = new Size(renderText.Width, renderText.Height);
+            }
         }
     }
 }
