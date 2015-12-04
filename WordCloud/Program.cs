@@ -50,10 +50,7 @@ namespace WordsCloud
 
         public IClient GetClient()
         {
-            if (options.Client == null)
-                return clients.First();
-
-            return clients.FirstOrDefault(c => c.Name.Equals(options.Client, StringComparison.InvariantCultureIgnoreCase));
+            return clients.FirstOrDefault(c => c.Name.Equals(options.Client, StringComparison.InvariantCultureIgnoreCase)) ?? clients.First();
         }
     }
 }
