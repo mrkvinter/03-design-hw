@@ -15,7 +15,7 @@ namespace WordsCloud.Algorithm
 
         public int Height
         {
-            get { return 10 + Container.Max(e => e.Rectangle.Y + e.Rectangle.Height); }
+            get { return 10 + (Container.Count != 0 ? Container.Max(e => e.Rectangle.Y + e.Rectangle.Height) : 0); }
         }
 
 
