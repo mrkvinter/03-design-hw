@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Ninject;
 using WordsCloud.Algorithm;
 using WordsCloud.Client;
 using WordsCloud.Parser;
-using WordsCloud.Reader;
 using WordsCloud.ViewWordsCloud;
 
 namespace WordsCloud
@@ -13,8 +14,9 @@ namespace WordsCloud
     {
         private readonly Options options;
         private readonly IClient[] clients;
+        private readonly Func<string, string, List<Word>> parser;
 
-        public Program(Options options,  params IClient[] clients)
+        public Program(Options options, params IClient[] clients)
         {
             this.options = options;
             this.clients = clients;
@@ -34,10 +36,10 @@ namespace WordsCloud
 
             kernel.Bind<IParser>().To<ParserTextToWordsContainer>()
                 .WithConstructorArgument("readerText",
-                                         context => new FileReader(context.Kernel.Get<Options>().FileName)
+                                         context => File.OpenText(context.Kernel.Get<Options>().FileName).ReadToEnd()
                                          )
                 .WithConstructorArgument("dullWords",
-                                         context => new FileReader(context.Kernel.Get<Options>().FileNameDull));
+                                         context => File.OpenText(context.Kernel.Get<Options>().FileNameDull));
 
             kernel.Bind<IView>().To<ViewPngImage>();
             kernel.Bind<IClient>().To<ConsoleClient>();
@@ -50,10 +52,7 @@ namespace WordsCloud
 
         public IClient GetClient()
         {
-            if (options.Client == null)
-                return clients.First();
-
-            return clients.FirstOrDefault(c => c.Name.Equals(options.Client, StringComparison.InvariantCultureIgnoreCase));
+            return clients.FirstOrDefault(c => c.Name.Equals(options.Client, StringComparison.InvariantCultureIgnoreCase)) ?? clients.First();
         }
     }
 }

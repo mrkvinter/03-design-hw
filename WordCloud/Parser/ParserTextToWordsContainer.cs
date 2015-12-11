@@ -3,7 +3,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using NHunspell;
 using WordsCloud.Parser;
-using WordsCloud.Reader;
 
 namespace WordsCloud
 {
@@ -13,17 +12,17 @@ namespace WordsCloud
         private readonly string text;
         private readonly List<string> dullWords;
 
-        public ParserTextToWordsContainer(IReader readerText, IReader dullWords)
+        public ParserTextToWordsContainer(string text, string dullWords = "")
         {
-            text = readerText.ReadAll() ?? string.Empty;
-            this.dullWords = dullWords.ReadAll()?.Split().ToList() ?? new List<string>();
+            this.text = text;
+            this.dullWords = dullWords.Split().ToList();
         }
 
 
         private bool isDullWord(string word)
         {
-            return (word == "" || 
-                   word.Length <= 2 || 
+            return (word == "" ||
+                   word.Length <= 2 ||
                    dullWords.Contains(word));
         }
         public List<Word> Parse()
@@ -51,6 +50,6 @@ namespace WordsCloud
     {
         public static string CleanTrim(this string str)
             => Regex.Replace(str, @"^\W*(\w*)\W*$", "$1");
-        
+
     }
 }
