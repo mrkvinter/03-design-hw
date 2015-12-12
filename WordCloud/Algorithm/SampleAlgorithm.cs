@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using WordsCloud.Parser;
 
 namespace WordsCloud.Algorithm
 {
@@ -19,9 +18,9 @@ namespace WordsCloud.Algorithm
         }
 
 
-        public SampleAlgorithm(IParser parser)
+        public SampleAlgorithm(List<Word> container)
         {
-            Container = parser.Parse();
+            Container = container;
         }
 
         public List<Word> ApplyAlgorithm()

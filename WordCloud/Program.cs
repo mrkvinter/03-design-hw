@@ -5,7 +5,6 @@ using System.Linq;
 using Ninject;
 using WordsCloud.Algorithm;
 using WordsCloud.Client;
-using WordsCloud.Parser;
 using WordsCloud.ViewWordsCloud;
 
 namespace WordsCloud
@@ -32,15 +31,11 @@ namespace WordsCloud
         {
             var kernel = new StandardKernel();
             kernel.Bind<Options>().ToSelf().WithConstructorArgument(args);
-            kernel.Bind<IAlgorithm>().To<SampleAlgorithm>();
-
-            kernel.Bind<IParser>().To<ParserTextToWordsContainer>()
-                .WithConstructorArgument("readerText",
-                                         context => File.OpenText(context.Kernel.Get<Options>().FileName).ReadToEnd()
-                                         )
-                .WithConstructorArgument("dullWords",
-                                         context => File.OpenText(context.Kernel.Get<Options>().FileNameDull));
-
+            
+            var wordsContainer =
+                ToWordsContainer.FromText(File.OpenText(kernel.Get<Options>().FileName).ReadToEnd(),
+                    File.OpenText(kernel.Get<Options>().FileNameDull).ReadToEnd());
+            kernel.Bind<IAlgorithm>().To<SampleAlgorithm>().WithConstructorArgument(wordsContainer);
             kernel.Bind<IView>().To<ViewPngImage>();
             kernel.Bind<IClient>().To<ConsoleClient>();
             kernel.Bind<IClient>().To<GuiClient>();

@@ -1,33 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using NHunspell;
-using WordsCloud.Parser;
 
 namespace WordsCloud
 {
-    public class ParserTextToWordsContainer
-        : IParser
+    public static class ToWordsContainer
     {
-        private readonly string text;
-        private readonly List<string> dullWords;
-
-        public ParserTextToWordsContainer(string text, string dullWords = "")
-        {
-            this.text = text;
-            this.dullWords = dullWords.Split().ToList();
-        }
-
-
-        private bool isDullWord(string word)
-        {
-            return (word == "" ||
-                   word.Length <= 2 ||
-                   dullWords.Contains(word));
-        }
-        public List<Word> Parse()
+        public static List<Word> FromText(string text, string dullWords = "")
         {
             var words = new Dictionary<string, int>();
+            var dulls = dullWords.Split().ToList();
+            Func<string, bool> isDullWord = e => (e == "" | e.Length <= 2 || dulls.Contains(e));
 
             using (var hunspell = new Hunspell("ru_RU.aff", "ru_RU.dic"))
             {
