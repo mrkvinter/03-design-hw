@@ -1,5 +1,6 @@
-﻿using System.Drawing;
-using WordsCloud.Algorithm;
+﻿using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 
 namespace WordsCloud.ViewWordsCloud
 {
@@ -13,10 +14,11 @@ namespace WordsCloud.ViewWordsCloud
             fileImageName = options.FileNameSaveImage;
         }
 
-        public void CreateImage(IAlgorithm algo)
+        public void CreateImage(List<Word> words)
         {
-            var words = algo.ApplyAlgorithm();
-            Image img = new Bitmap(algo.Width, algo.Height);
+            Image img = new Bitmap(words.Max(e => e.Rectangle.X + e.Rectangle.Width), 
+                                   words.Max(e => e.Rectangle.Y + e.Rectangle.Height));
+
             using (var g = Graphics.FromImage(img))
             { 
                 g.Clear(Color.White);

@@ -35,14 +35,15 @@ namespace WordsCloud
             var wordsContainer =
                 ToWordsContainer.FromText(File.OpenText(kernel.Get<Options>().FileName).ReadToEnd(),
                     File.OpenText(kernel.Get<Options>().FileNameDull).ReadToEnd());
-            kernel.Bind<IAlgorithm>().To<SampleAlgorithm>().WithConstructorArgument(wordsContainer);
+            wordsContainer = SampleAlgorithm.ApplyAlgorithm(wordsContainer, 1280);
+
             kernel.Bind<IView>().To<ViewPngImage>();
             kernel.Bind<IClient>().To<ConsoleClient>();
             kernel.Bind<IClient>().To<GuiClient>();
 
             kernel.Get<Program>()
                 .GetClient()
-                .Run();
+                .Run(wordsContainer);
         }
 
         public IClient GetClient()

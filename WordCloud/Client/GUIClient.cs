@@ -1,5 +1,5 @@
-﻿using System.Windows.Forms;
-using WordsCloud.Algorithm;
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
 using WordsCloud.ViewWordsCloud;
 
 namespace WordsCloud.Client
@@ -7,12 +7,12 @@ namespace WordsCloud.Client
     class GuiClient
         : Form, IClient
     {
-        public GuiClient(IAlgorithm algo, IView viewer)
+        public GuiClient(IView viewer)
         {
             Name = "GUI";
         }
         
-        public void Run()
+        public void Run(List<Word> words)
         {
             Application.Run(this);
         }

@@ -1,9 +1,10 @@
-﻿using WordsCloud.Algorithm;
+﻿using System.Collections.Generic;
+using WordsCloud.Algorithm;
 
 namespace WordsCloud.ViewWordsCloud
 {
     public interface IView
     {
-        void CreateImage(IAlgorithm algo);
+        void CreateImage(List<Word> algo);
     }
 }
