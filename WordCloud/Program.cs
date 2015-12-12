@@ -1,24 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
-using System.Linq;
-using Ninject;
 using WordsCloud.Algorithm;
-using WordsCloud.Client;
 using WordsCloud.ViewWordsCloud;
 
 namespace WordsCloud
 {
     public class Program
     {
-        private readonly Options options;
-        private readonly IClient[] clients;
-        private readonly Func<string, string, List<Word>> parser;
+        public Action Run; 
 
-        public Program(Options options, params IClient[] clients)
+        public Program(Options options,
+            List<Word> words,
+            Action<List<Word>, Func<List<Word>,int, List<Word>>, Func<List<Word>, Image>, int> client,
+            Func<List<Word>, int, List<Word>> algo,
+            Func<List<Word>, Image> view,
+            int width)
         {
-            this.options = options;
-            this.clients = clients;
+            Run = () => client(words, algo, view, width);
+
             if (options.FileName == null)
                 Console.WriteLine("Не было введено имя файла для работы программы.");
             if (options.FileNameSaveImage == null)
@@ -29,26 +30,18 @@ namespace WordsCloud
 
         private static void Main(string[] args)
         {
-            var kernel = new StandardKernel();
-            kernel.Bind<Options>().ToSelf().WithConstructorArgument(args);
-            
+            var options = new Options(args);
             var wordsContainer =
-                ToWordsContainer.FromText(File.OpenText(kernel.Get<Options>().FileName).ReadToEnd(),
-                    File.OpenText(kernel.Get<Options>().FileNameDull).ReadToEnd());
-            wordsContainer = SampleAlgorithm.ApplyAlgorithm(wordsContainer, 1280);
-            ViewPngImage.CreateImage(wordsContainer).Save(kernel.Get<Options>().FileNameSaveImage);
+                ToWordsContainer.FromText(File.OpenText(options.FileName).ReadToEnd(),
+                                          File.OpenText(options.FileNameDull).ReadToEnd());
 
-            kernel.Bind<IClient>().To<ConsoleClient>();
-            kernel.Bind<IClient>().To<GuiClient>();
-
-            kernel.Get<Program>()
-                .GetClient()
-                .Run(wordsContainer);
-        }
-
-        public IClient GetClient()
-        {
-            return clients.FirstOrDefault(c => c.Name.Equals(options.Client, StringComparison.InvariantCultureIgnoreCase)) ?? clients.First();
+            new Program(options,
+                wordsContainer,
+                Client.Console,
+                SampleAlgorithm.ApplyAlgorithm,
+                ViewPngImage.CreateImage,
+                1280)
+                .Run();
         }
     }
 }

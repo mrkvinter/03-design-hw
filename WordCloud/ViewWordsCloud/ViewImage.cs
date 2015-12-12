@@ -23,7 +23,6 @@ namespace WordsCloud.ViewWordsCloud
                         word.Rectangle);
             }
             return img;
-            //if (fileImageName != null) img.Save(fileImageName);
         }
     }
 }
