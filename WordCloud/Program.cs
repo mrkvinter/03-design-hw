@@ -36,8 +36,8 @@ namespace WordsCloud
                 ToWordsContainer.FromText(File.OpenText(kernel.Get<Options>().FileName).ReadToEnd(),
                     File.OpenText(kernel.Get<Options>().FileNameDull).ReadToEnd());
             wordsContainer = SampleAlgorithm.ApplyAlgorithm(wordsContainer, 1280);
+            ViewPngImage.CreateImage(wordsContainer).Save(kernel.Get<Options>().FileNameSaveImage);
 
-            kernel.Bind<IView>().To<ViewPngImage>();
             kernel.Bind<IClient>().To<ConsoleClient>();
             kernel.Bind<IClient>().To<GuiClient>();
 

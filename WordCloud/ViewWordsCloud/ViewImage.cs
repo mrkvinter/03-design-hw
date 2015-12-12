@@ -4,17 +4,9 @@ using System.Linq;
 
 namespace WordsCloud.ViewWordsCloud
 {
-    public class ViewPngImage
-        : IView
+    public static class ViewPngImage
     {
-        private readonly string fileImageName;
-
-        public ViewPngImage(Options options)
-        {
-            fileImageName = options.FileNameSaveImage;
-        }
-
-        public void CreateImage(List<Word> words)
+        public static Image CreateImage(List<Word> words)
         {
             Image img = new Bitmap(words.Max(e => e.Rectangle.X + e.Rectangle.Width), 
                                    words.Max(e => e.Rectangle.Y + e.Rectangle.Height));
@@ -30,8 +22,8 @@ namespace WordsCloud.ViewWordsCloud
                         new SolidBrush(word.Color),
                         word.Rectangle);
             }
-
-            if (fileImageName != null) img.Save(fileImageName);
+            return img;
+            //if (fileImageName != null) img.Save(fileImageName);
         }
     }
 }

@@ -9,19 +9,14 @@ namespace WordsCloud.Client
         : IClient
     {
         private readonly Dictionary<string, int> container;
-        private readonly IView viewer;
 
-        public ConsoleClient(IView viewer)
-        {
-            this.viewer = viewer;
-        }
 
         public string Name => "Console";
 
-        public void Run(List<Word> words )
+        public void Run(List<Word> words)
         {
             Console.WriteLine("Word container: " + (container != null ? "there's." : "none."));
-            viewer.CreateImage(words);
+            //viewer.CreateImage(words);
         }
     }
 }

@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
-using WordsCloud.ViewWordsCloud;
 
 namespace WordsCloud.Client
 {
     class GuiClient
         : Form, IClient
     {
-        public GuiClient(IView viewer)
+        public GuiClient()
         {
             Name = "GUI";
         }
