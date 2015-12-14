@@ -32,7 +32,7 @@ namespace WordsCloud
         private static void Main(string[] args)
         {
             var options = new Options(args);
-
+            
             var wordsContainer =
                 ToWordsContainer.FromText(File.OpenText(options.FileName).ReadToEnd(),
                                           File.OpenText(options.FileNameDull).ReadToEnd());
@@ -41,19 +41,9 @@ namespace WordsCloud
                 wordsContainer,
                 Client.Console,
                 SampleAlgorithm.ApplyAlgorithm,
-                ViewPngImage.CreateImage,
+                ViewImage.CreateImage,
                 1280)
                 .Run();
-        }
-
-        private static string helpMessage()
-        {
-            var help = new StringBuilder();
-            help.Append("Keys for run: ");
-            help.Append("-f -file : Input file name for make tag cloud.");
-            help.Append("-s -fileSave : Input file name for save iamge.");
-            help.Append("-d -fileDull :Input file name with dull words.");
-            return help.ToString();
         }
     }
 }
