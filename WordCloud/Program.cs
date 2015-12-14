@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Text;
 using WordsCloud.Algorithm;
 using WordsCloud.ViewWordsCloud;
 
@@ -13,13 +14,13 @@ namespace WordsCloud
 
         public Program(Options options,
             List<Word> words,
-            Action<List<Word>, Func<List<Word>,int, List<Word>>, Func<List<Word>, Image>, int> client,
+            Action<List<Word>, Func<List<Word>,int, List<Word>>, Func<List<Word>, Image>, int, string> client,
             Func<List<Word>, int, List<Word>> algo,
             Func<List<Word>, Image> view,
             int width)
         {
-            Run = () => client(words, algo, view, width);
-
+            Run = () => client(words, algo, view, width, options.FileNameSaveImage);
+            
             if (options.FileName == null)
                 Console.WriteLine("Не было введено имя файла для работы программы.");
             if (options.FileNameSaveImage == null)
@@ -31,6 +32,7 @@ namespace WordsCloud
         private static void Main(string[] args)
         {
             var options = new Options(args);
+
             var wordsContainer =
                 ToWordsContainer.FromText(File.OpenText(options.FileName).ReadToEnd(),
                                           File.OpenText(options.FileNameDull).ReadToEnd());
@@ -42,6 +44,16 @@ namespace WordsCloud
                 ViewPngImage.CreateImage,
                 1280)
                 .Run();
+        }
+
+        private static string helpMessage()
+        {
+            var help = new StringBuilder();
+            help.Append("Keys for run: ");
+            help.Append("-f -file : Input file name for make tag cloud.");
+            help.Append("-s -fileSave : Input file name for save iamge.");
+            help.Append("-d -fileDull :Input file name with dull words.");
+            return help.ToString();
         }
     }
 }

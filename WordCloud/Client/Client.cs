@@ -6,10 +6,10 @@ namespace WordsCloud
 {
     static class Client
     {
-        public static void Console(List<Word> words, Func<List<Word>, int, List<Word>> algo, Func<List<Word>, Image> viewer, int width)
+        public static void Console(List<Word> words, Func<List<Word>, int, List<Word>> algo, Func<List<Word>, Image> painter, int widthImage, string imageNameFile)
         {
             System.Console.WriteLine("Word container: " + (words != null ? "there's." : "none."));
-            viewer(algo(words, width));
+            painter(algo(words, widthImage)).Save(imageNameFile);
         }
     }
 }

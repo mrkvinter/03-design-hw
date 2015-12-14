@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace WordsCloud.ViewWordsCloud
 {
-    public static class ViewPngImage
+    public static class ViewImage
     {
         public static Image CreateImage(List<Word> words)
         {

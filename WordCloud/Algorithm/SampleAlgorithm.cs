@@ -30,16 +30,15 @@ namespace WordsCloud.Algorithm
             var wordesOnLine = new List<Word>();
             foreach (var word in orderContainer)
             {
-                var size = word.Rectangle;
-                if (widthWordes + size.Width > width || Equals(orderContainer.Last(), word))
+                var size = word.Rectangle.Size;
+                if (widthWordes + size.Width > width)
                 {
-                    if (Equals(orderContainer.Last(), word)) wordesOnLine.Add(word);
                     var maxHeightOnLine = wordesOnLine.Max(e => e.Rectangle.Height) / 2.0;
-                    foreach (var e in wordesOnLine)
+                    foreach (var wordOnLine in wordesOnLine)
                     {
-                        var oldX = e.Rectangle.X;
-                        e.Rectangle.Location = new Point(oldX, (int)(shiftY + maxHeightOnLine - e.Rectangle.Height / 2.0));
-                        yield return e;
+                        var oldX = wordOnLine.Rectangle.X;
+                        wordOnLine.Rectangle.Location = new Point(oldX, (int)(shiftY + maxHeightOnLine - wordOnLine.Rectangle.Height / 2.0));
+                        yield return wordOnLine;
                     }
                     widthWordes = 0;
                     shiftY += maxHeightWord;
@@ -51,6 +50,8 @@ namespace WordsCloud.Algorithm
                 widthWordes += size.Width;
                 wordesOnLine.Add(word);
             }
+            foreach (var word in wordesOnLine)
+                yield return word;      
         }
 
         private static IEnumerable<Word> SetSizeWord(this IEnumerable<Word> container)
