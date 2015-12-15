@@ -10,6 +10,7 @@ namespace WordsCloud
         {
             System.Console.WriteLine("Word container: " + (words != null ? "there's." : "none."));
             painter(algo(words, widthImage)).Save(imageNameFile);
+            System.Console.WriteLine($"Изображение сохранено в {imageNameFile}");
         }
     }
 }

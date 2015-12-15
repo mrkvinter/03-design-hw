@@ -5,12 +5,6 @@ namespace WordsCloud
 {
     public class Options
     {
-        public Options(string[] args)
-        {
-
-            CommandLine.Parser.Default.ParseArguments(args, this);
-        }
-
         [Option('f', "file", Required = true, HelpText = "Input file name for make tag cloud.")]
         public string FileName { get; set; }
 
@@ -27,10 +21,10 @@ namespace WordsCloud
         public string GetUsage()
         {
             var help = new StringBuilder();
-            help.Append("Keys for run: ");
-            help.Append("-f -file : Input file name for make tag cloud.");
-            help.Append("-s -fileSave : Input file name for save iamge.");
-            help.Append("-d -fileDull :Input file name with dull words.");
+            help.Append("Keys for run: \n");
+            help.Append("-f -file : Input file name for make tag cloud.\n");
+            help.Append("-s -fileSave : Input file name for save iamge.\n");
+            help.Append("-d -fileDull :Input file name with dull words.\n");
             return help.ToString();
         }
     }

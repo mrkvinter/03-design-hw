@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using WordsCloud.Algorithm;
 using WordsCloud.ViewWordsCloud;
+using CommandLine;
 
 namespace WordsCloud
 {
@@ -26,16 +27,22 @@ namespace WordsCloud
             if (options.FileNameSaveImage == null)
                 Console.WriteLine("Не было введено имя файла для сохранения итогового изображения.");
             if (options.FileNameDull == null)
-                Console.WriteLine("Список скучных не бы получен.");
+                Console.WriteLine("Список скучных не был получен.");
         }
 
         private static void Main(string[] args)
         {
-            var options = new Options(args);
-            
-            var wordsContainer =
-                ToWordsContainer.FromText(File.OpenText(options.FileName).ReadToEnd(),
-                                          File.OpenText(options.FileNameDull).ReadToEnd());
+            var options = new Options();
+            if (!Parser.Default.ParseArguments(args, options))
+            {
+                Console.WriteLine("Не были переданы необходимые параметры.");
+                options.GetUsage();
+                return;
+            }
+
+            var text = File.OpenText(options.FileName).ReadToEnd();
+            var dullText = File.Exists(options.FileNameDull) ? File.OpenText(options.FileNameDull).ReadToEnd() : "";
+            var wordsContainer = ToWordsContainer.FromText(text, dullText);
 
             new Program(options,
                 wordsContainer,
