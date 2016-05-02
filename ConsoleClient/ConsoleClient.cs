@@ -12,10 +12,10 @@ namespace ConsoleClient
         public ConsoleClient(Options options,
             List<Word> words,
             Func<List<Word>, int, List<Word>> algo,
-            Func<List<Word>, Image> view,
-            int width)
+            Func<List<Word>, Image> painter,
+            int widthImage)
         {
-            Run = () => Console(words, algo, view, width, options.FileNameSaveImage);
+            Run = () => Console(words, algo, painter, widthImage, options.FileNameSaveImage);
 
             if (options.FileName == null)
                 System.Console.WriteLine("Не было введено имя файла для работы программы.");
@@ -24,10 +24,10 @@ namespace ConsoleClient
             if (options.FileNameDull == null)
                 System.Console.WriteLine("Список скучных не был получен.");
         }
-        public static void Console(List<Word> words, Func<List<Word>, int, List<Word>> algo, Func<List<Word>, Image> painter, int widthImage, string imageNameFile)
+        public static void Console(List<Word> words, Func<List<Word>, int, List<Word>> performAlgorithm, Func<List<Word>, Image> painter, int widthImage, string imageNameFile)
         {
             System.Console.WriteLine("Word container: " + (words != null ? "there's." : "none."));
-            painter(algo(words, widthImage)).Save(imageNameFile);
+            painter(performAlgorithm(words, widthImage)).Save(imageNameFile);
             System.Console.WriteLine($"Изображение сохранено в {imageNameFile}");
         }
     }
