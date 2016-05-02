@@ -1,14 +1,14 @@
-﻿using CommandLine;
-using System.Text;
+﻿using System.Text;
+using CommandLine;
 
-namespace WordsCloud
+namespace ConsoleClient
 {
     public class Options
     {
         [Option('f', "file", Required = true, HelpText = "Input file name for make tag cloud.")]
         public string FileName { get; set; }
 
-        [Option('c', "client", DefaultValue = "console", HelpText = "Client for work.")]
+        [Option('c', "client", DefaultValue = "console", HelpText = "ConsoleClient for work.")]
         public string Client { get; set; }
 
         [Option('s', "fileSave", Required = true, HelpText = "Input file name for save iamge.")]
